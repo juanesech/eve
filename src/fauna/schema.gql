@@ -1,0 +1,26 @@
+type Store {
+  name: String! @unique
+  products: [Product] @relation(name: "store_products")
+  bills: [Bill] @relation(name: "store_bills")
+}
+
+type Product {
+  name: String! @unique
+  price: Float!
+  bills: [Bill]! @relation(name: "product_on_bill")
+  stores: [Store] @relation(name: "store_products")
+}
+
+type Bill {
+  store: Store! @relation(name: "store_bills")
+  products: [Product!] @relation(name: "product_on_bill")
+  total: Float
+  date: Date!
+}
+
+type Query {
+  allStores: [Store!]
+  allProducts: [Product!]
+  allBills: [Bill!]
+  store(name: String!): [Store]
+}

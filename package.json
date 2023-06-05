@@ -4,6 +4,7 @@
 	"private": true,
 	"scripts": {
 		"dev": "vite dev",
+		"fauna-schema": "fauna upload-graphql-schema src/fauna/schema.gql --secret=$FAUNA_SECRET",
 		"build": "vite build",
 		"preview": "vite preview",
 		"test": "playwright test",

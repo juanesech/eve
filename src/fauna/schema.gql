@@ -23,4 +23,5 @@ type Query {
   allProducts: [Product!]
   allBills: [Bill!]
   store(name: String!): [Store]
+  product(name: String!): [Product]
 }

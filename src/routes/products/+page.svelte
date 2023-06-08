@@ -2,9 +2,9 @@
   import BillDetails from '$lib/BillDetails.svelte';
   import { Table, tableMapperValues } from '@skeletonlabs/skeleton';
   import type { TableSource } from '@skeletonlabs/skeleton';
-  import type { Item } from '../../Store';
+  import type { Product } from '../../Store';
 
-  let sourceData:Item[] = [
+  let sourceData:Product[] = [
     {name: "Queso philadelphia", price: 2.50, store: "Lidle"},
     {name: "Pan tajado", price: 2.70, store: "Carrefour"},
     {name: "Brocoli", price: 1, store: "Lidle"},

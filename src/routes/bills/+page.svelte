@@ -1,5 +1,5 @@
 <script lang="ts">
-  import {BillStore, type Bill, type Item} from '../../Store';
+  import {BillStore, type Bill, type Product} from '../../Store';
   import BillDetails from '$lib/BillDetails.svelte';
   import { Table, tableMapperValues, tableSourceMapper } from '@skeletonlabs/skeleton';
   import { Modal, modalStore } from '@skeletonlabs/skeleton';

@@ -41,6 +41,8 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"faunadb": "^4.8.0"
+		"faunadb": "^4.8.0",
+		"graphql": "^16.6.0",
+		"graphql-request": "^6.1.0"
 	}
 }

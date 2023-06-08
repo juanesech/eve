@@ -34,7 +34,7 @@
 				<AppRailTile class="rounded-md" label="Board" href="/"><Icon icon="teenyicons:area-chart-alt-solid" /></AppRailTile>
 				<AppRailTile class="rounded-md" label="Bills" href="/bills"><Icon icon="teenyicons:table-solid" /></AppRailTile>
 				<AppRailTile class="rounded-md" label="Products" href="/products"><Icon icon="teenyicons:layers-solid" /></AppRailTile>
-				<AppRailTile class="rounded-md" label="Shopping" href="/shopping"><Icon icon="teenyicons:bag-alt-solid" /></AppRailTile>
+				<AppRailTile class="rounded-md" label="Stores" href="/stores"><Icon icon="teenyicons:bag-alt-solid" /></AppRailTile>
 			</AppRail>
 		</div>
 	</svelte:fragment>

@@ -1,9 +1,9 @@
 <script lang="ts">
   import { Table, tableMapperValues, modalStore } from '@skeletonlabs/skeleton';
   import type { TableSource } from '@skeletonlabs/skeleton';
-	import type { Item } from '../Store';
+  import type { Product } from '../Store';
 
-  export let items:Item[];
+  export let items:Product[];
   export let parent: any;
   let shoppingTable: TableSource = {
     head: ['Item', 'Price'],

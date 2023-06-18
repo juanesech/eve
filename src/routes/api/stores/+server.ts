@@ -1,9 +1,7 @@
 import { error } from '@sveltejs/kit';
-import { StoreStore, type Store } from '../../../Store';
+import type { Store } from '../../../fauna/model';
 import { GraphQLClient, gql } from 'graphql-request';
 
-let stores: Store[] = [];
-StoreStore.subscribe((data) => stores = data);
 const endpoint: string = "https://graphql.eu.fauna.com/graphql";
 const graphQLClient = new GraphQLClient(endpoint, {
   headers: {
@@ -20,6 +18,7 @@ const storesQuery = gql`
         products {
           data {
               _id
+              name
           }
         }
       }
@@ -27,10 +26,21 @@ const storesQuery = gql`
   }
 `
 
+interface ResponseAllStores {
+  allStores: { 
+     data: Store[]
+  }
+}
+
 export async function GET() {
-  stores = await graphQLClient.request(storesQuery);
-  if (!stores) {
+  let response:ResponseAllStores = await graphQLClient.request(storesQuery);
+  
+  if (!response) {
     throw error(400, `No stores found.`);
   }
+
+  let stores: Store[] = response.allStores.data;
+  console.log(stores);
   return new Response(JSON.stringify(stores));
 }
+

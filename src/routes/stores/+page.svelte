@@ -1,23 +1,26 @@
 <script lang="ts">
   import { Table, tableMapperValues } from '@skeletonlabs/skeleton';
   import type { TableSource } from '@skeletonlabs/skeleton';
-  import type { Store } from '../../Store';
+  import type { Store } from '../../fauna/model';
   import { onMount } from 'svelte';
 
   let sourceData:Store[] = [];
   let storesTable: TableSource;
   onMount(async () => {
-    const response = await fetch(`/api/getStores`);
-    let rsp = await response.json();
-    sourceData = rsp.allStores.data;
+    const response = await fetch(`/api/stores`);
+    sourceData = await response.json();
+
+    let storeDataRsp = await fetch(`/api/stores/Lidle`);
+    let storeData = await storeDataRsp.json();
+    console.log("STORE DATA", storeData);
   })
-  $: (
-    storesTable = {
+  $: storesTable = {
       head: ['Name', 'Products'],
-      body: tableMapperValues(sourceData, ['name', String(sourceData.reduce( (accum, currVal) => accum + currVal.products.length, 0))]),
-      meta: tableMapperValues(sourceData, ['name', String(sourceData.reduce( (accum, currVal) => accum + currVal.products.length, 0))]),
-    }
-  )
+      //body: tableMapperValues(sourceData, ['name', String(sourceData.reduce( (accum, currVal) => accum + currVal.products.data.length, 0))]),
+      body: tableMapperValues(sourceData, ['name', '<p>{products.data.length}</p>']),
+      //meta: tableMapperValues(sourceData, ['name', String(sourceData.reduce( (accum, currVal) => accum + currVal.products.data.length, 0))]),
+      meta: tableMapperValues(sourceData, ['name', 'products']),
+  }
   let filter = ""
   function handleFilterChange() {
     let filteredData = sourceData.filter( item => item.name.includes(filter));

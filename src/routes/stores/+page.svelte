@@ -3,6 +3,7 @@
   import type { TableSource } from '@skeletonlabs/skeleton';
   import type { Store } from '../../fauna/model';
   import { onMount } from 'svelte';
+  import { goto } from '$app/navigation'; 
 
   let sourceData:Store[] = [];
   let storesTable: TableSource;
@@ -10,16 +11,19 @@
     const response = await fetch(`/api/stores`);
     sourceData = await response.json();
 
-    let storeDataRsp = await fetch(`/api/stores/Lidle`);
-    let storeData = await storeDataRsp.json();
-    console.log("STORE DATA", storeData);
+    console.log("STORES DATA", sourceData);
   })
+
+  const handleClick = ( value:CustomEvent ) => {
+    console.log("CLICK HANDLER:", value);
+    console.log(`EVENT DETAIL: /stores/${value.detail[0]}`)
+    goto(`/stores/${value.detail[0]}`);
+  }
+
   $: storesTable = {
-      head: ['Name', 'Products'],
-      //body: tableMapperValues(sourceData, ['name', String(sourceData.reduce( (accum, currVal) => accum + currVal.products.data.length, 0))]),
-      body: tableMapperValues(sourceData, ['name', '<p>{products.data.length}</p>']),
-      //meta: tableMapperValues(sourceData, ['name', String(sourceData.reduce( (accum, currVal) => accum + currVal.products.data.length, 0))]),
-      meta: tableMapperValues(sourceData, ['name', 'products']),
+      head: ['Name'],
+      body: tableMapperValues(sourceData, ['name']),
+      meta: tableMapperValues(sourceData, ['name']),
   }
   let filter = ""
   function handleFilterChange() {
@@ -36,6 +40,6 @@
     placeholder="Filter..."
     bind:value={filter}
     on:change={handleFilterChange}/>
-  <Table source={storesTable} interactive class="top-5"/>
+  <Table source={storesTable} interactive on:selected={handleClick} class="top-5"/>
 </div>
 

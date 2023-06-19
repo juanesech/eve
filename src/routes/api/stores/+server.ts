@@ -40,7 +40,7 @@ export async function GET() {
   }
 
   let stores: Store[] = response.allStores.data;
-  console.log(stores);
+  console.log("STORES RESPONSE: ", stores);
   return new Response(JSON.stringify(stores));
 }
 

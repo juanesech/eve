@@ -1,4 +1,10 @@
 import { writable } from "svelte/store";
-import type { Store } from "./fauna/model";
+import type { Store as StoreType} from "./fauna/model";
 
-export const StoreStore = writable(<Store[]>[]);
+export const store = writable(
+  <StoreType>{
+    name: "",
+    products: {
+      data: []
+    }
+});

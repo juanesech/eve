@@ -2,6 +2,7 @@ import { error } from '@sveltejs/kit';
 import type { RequestEvent } from '@sveltejs/kit';
 import type { Store } from '../../../../fauna/model';
 import { GraphQLClient, gql } from 'graphql-request';
+import { store } from '../../../../Store';
 
 const endpoint: string = "https://graphql.eu.fauna.com/graphql";
 const graphQLClient = new GraphQLClient(endpoint, {
@@ -17,8 +18,6 @@ interface ResponseStoreByName {
 }
 
 export async function GET( { params }: RequestEvent ) {
-  console.log("PAGE PARAMS:", params);
-  
   const { name } = params;
   const getStoreQuery = gql`
    query StoreByName {
@@ -42,8 +41,6 @@ export async function GET( { params }: RequestEvent ) {
     throw error(400, `No stores found.`);
   }
   
-  let store: Store = response.store.data[0];
-  console.log("GET STORE RESPONSE:", store);
-  
-  return new Response(JSON.stringify(store));
+  store.set(response.store.data[0]);
+  return new Response("Ok", 200);
 }

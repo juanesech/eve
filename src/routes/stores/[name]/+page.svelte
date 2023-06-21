@@ -3,11 +3,8 @@
   import {page} from '$app/stores';
   
   let storeName:string; 
-
-  $: {
-    storeName = $page.params.name 
-    console.log("STORE NAME: ", storeName);
-  }
+  $: storeName = $page.params.name;
+  
 </script>
 
 <div class="m-3">

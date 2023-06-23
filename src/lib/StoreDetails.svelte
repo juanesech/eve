@@ -4,7 +4,6 @@
   import { store } from '../Store';
 
   export let storeName:string;
-  //let productList:Product[] = [];
   
   onMount(async () => {
     console.log("START onMount");
@@ -13,8 +12,6 @@
     store.set(storeData);
     console.log("STORE DATA FROM DETAILS", storeData);
   });
-
-  //$: productList = $store.products.data;
 
 </script>
 

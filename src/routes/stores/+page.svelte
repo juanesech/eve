@@ -1,18 +1,11 @@
 <script lang="ts">
   import { Table, tableMapperValues } from '@skeletonlabs/skeleton';
   import type { TableSource } from '@skeletonlabs/skeleton';
-  import type { Store } from '../../fauna/model';
-  import { onMount } from 'svelte';
+  import type { PageServerData } from './$types';
   import { goto } from '$app/navigation'; 
 
-  let sourceData:Store[] = [];
+  export let data: PageServerData;
   let storesTable: TableSource;
-  onMount(async () => {
-    const response = await fetch(`/api/stores`);
-    sourceData = await response.json();
-
-    console.log("STORES DATA", sourceData);
-  })
 
   const handleClick = ( value:CustomEvent ) => {
     console.log("CLICK HANDLER:", value);
@@ -22,14 +15,14 @@
 
   $: storesTable = {
       head: ['Name'],
-      body: tableMapperValues(sourceData, ['name']),
-      meta: tableMapperValues(sourceData, ['name']),
+      body: tableMapperValues(data.stores, ['name']),
+      meta: tableMapperValues(data.stores, ['name']),
   }
   let filter = ""
   function handleFilterChange() {
-    let filteredData = sourceData.filter( item => item.name.includes(filter));
+    let filteredData = data.stores.filter( item => item.name.includes(filter));
     console.log(filteredData);
-    sourceData = filteredData;
+    data.stores = filteredData;
   }
 </script>
 <div class="m-3">

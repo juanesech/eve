@@ -1,5 +1,5 @@
 import { writable } from "svelte/store";
-import type { Store as StoreType} from "./fauna/model";
+import type { Store as StoreType, Product} from "./fauna/model";
 
 export const store = writable(
   <StoreType>{
@@ -8,3 +8,5 @@ export const store = writable(
       data: []
     }
 });
+
+export const products = writable(<Product[]>[]);

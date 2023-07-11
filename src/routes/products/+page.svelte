@@ -3,12 +3,16 @@
   import { Table, tableMapperValues } from '@skeletonlabs/skeleton';
   import type {Product} from '../../fauna/model';
 
+  /*TODO
+    Use chips for stores https://www.skeleton.dev/elements/chips
+  */
+
   export let data: PageServerData;
   let sourceData:Product[] = data.products;
   $: productsTable = {
-    head: ['Item', 'Price', 'Store'],
-    body: tableMapperValues(sourceData, ['name', 'price', 'store']),
-    meta: tableMapperValues(sourceData, ['name', 'price', 'store']),
+    head: ['Item', 'Stores'],
+    body: tableMapperValues(sourceData, ['name']),
+    meta: tableMapperValues(sourceData, ['name']),
   };
   let filter = ""
   function handleFilterChange() {

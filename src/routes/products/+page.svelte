@@ -1,17 +1,11 @@
 <script lang="ts">
-  import BillDetails from '$lib/BillDetails.svelte';
+  import type { PageServerData } from './$types';
   import { Table, tableMapperValues } from '@skeletonlabs/skeleton';
-  import type { TableSource } from '@skeletonlabs/skeleton';
-  import type { Product } from '../../Store';
+  import type {Product} from '../../fauna/model';
 
-  let sourceData:Product[] = [
-    {name: "Queso philadelphia", price: 2.50, store: "Lidle"},
-    {name: "Pan tajado", price: 2.70, store: "Carrefour"},
-    {name: "Brocoli", price: 1, store: "Lidle"},
-    {name: "Salsa BBQ", price: 1.25, store: "Lidle"},
-    {name: "Ensalada", price: 2.80, store: "Mercadona"}
-  ];
-  let shoppingTable: TableSource = {
+  export let data: PageServerData;
+  let sourceData:Product[] = data.products;
+  $: productsTable = {
     head: ['Item', 'Price', 'Store'],
     body: tableMapperValues(sourceData, ['name', 'price', 'store']),
     meta: tableMapperValues(sourceData, ['name', 'price', 'store']),
@@ -31,5 +25,5 @@
     placeholder="Filter..."
     bind:value={filter}
     on:change={handleFilterChange}/>
-  <Table source={shoppingTable} interactive class="top-5"/>
+  <Table source={productsTable} interactive class="top-5"/>
 </div>

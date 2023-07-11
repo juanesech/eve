@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { PageServerData } from './$types';
+  import ContentLoad from '$lib/ContentLoad.svelte';
   import {page} from '$app/stores';
   
   export let data: PageServerData;
@@ -13,7 +14,7 @@
     <h1 class="h1">{storeName}</h1>
   </div>
   {#await data}
-    Loading...
+    <ContentLoad/>
   {:then}
     <div class="m-10">
       <div class="mt-10">

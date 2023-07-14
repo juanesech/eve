@@ -1,26 +1,24 @@
 <script lang="ts">
   import type { PageServerData } from './$types';
-  import { Table, tableMapperValues } from '@skeletonlabs/skeleton';
   import type {Product} from '../../fauna/model';
-
-  /*TODO
-    Use chips for stores https://www.skeleton.dev/elements/chips
-  */
+  import { goto } from '$app/navigation';
 
   export let data: PageServerData;
   let sourceData:Product[] = data.products;
-  $: productsTable = {
-    head: ['Item', 'Stores'],
-    body: tableMapperValues(sourceData, ['name']),
-    meta: tableMapperValues(sourceData, ['name']),
-  };
+  console.log("DATA: ", sourceData);
+  
   let filter = ""
   function handleFilterChange() {
     let filteredData = sourceData.filter( item => item.name.includes(filter));
     console.log(filteredData);
     sourceData = filteredData;
   }
+
+  const handleClick = (storeName:string) => {
+    goto(`/stores/${storeName}`);
+  }
 </script>
+
 <div class="m-3">
   <input
     class="input m-2 w-5/12"
@@ -29,5 +27,30 @@
     placeholder="Filter..."
     bind:value={filter}
     on:change={handleFilterChange}/>
-  <Table source={productsTable} interactive class="top-5"/>
+  <div class="table-container">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>Stores</th>
+        </tr>
+      </thead>
+      <tbody>
+        {#each sourceData as product}
+          <tr>
+            <td>{product.name}</td>
+            <td>
+              {#each product.stores.data as store}
+              <span class="chip variant-soft hover:variant-filled"
+                on:click={() => handleClick(store.name)}
+                on:keydown={() => handleClick(store.name)}>
+                {store.name}
+              </span>
+              {/each}
+            </td>
+          </tr>
+        {/each}
+      </tbody>
+    </table>
+  </div>
 </div>

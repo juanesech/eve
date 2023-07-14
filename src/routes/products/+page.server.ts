@@ -1,5 +1,5 @@
 import { error } from '@sveltejs/kit';
-import type { Product } from '../../fauna/model';
+import type { Product, Store } from '../../fauna/model';
 import type { PageServerLoad } from './$types';
 import { GraphQLClient, gql } from 'graphql-request';
 

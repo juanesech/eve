@@ -1,34 +1,50 @@
 <script lang="ts">
-  import {BillStore, type Bill, type Product} from '../../Store';
-  import BillDetails from '$lib/BillDetails.svelte';
-  import { Table, tableMapperValues, tableSourceMapper } from '@skeletonlabs/skeleton';
-  import { Modal, modalStore } from '@skeletonlabs/skeleton';
-  import type { ModalSettings, ModalComponent } from '@skeletonlabs/skeleton';
-  import type { TableSource } from '@skeletonlabs/skeleton';
-  let bills: Bill[] = [];
-  BillStore.subscribe((data) => bills = data);
+  import type { PageServerData } from './$types';
+  import type { Bill, Product } from '../../fauna/model';
+  import { goto } from '$app/navigation';
+  import {bills as billStore, products as productStore} from './store';
 
-  let billsTable: TableSource = {
-    head: ['Date', 'Market'],
-    body: tableMapperValues(bills, ['date', 'market']),
-    meta: tableSourceMapper(bills, ['date', 'market', 'items']),
-  };
-  let modalComponent: ModalComponent = {
-    ref: BillDetails,
-    props: {},
-  };
+  export let data: PageServerData;
+  let sourceData: Bill[] = data.bills;
+  billStore.set(sourceData);
+  console.log("DATA: ", sourceData);
+  sourceData.forEach((bill) => {
+    console.log(bill.store.name);
+  })
 
-  const modal: ModalSettings = {
-      type: 'component',
-      component: modalComponent,
-  };
-  
-  function selectHandler(event:CustomEvent) {
-    modalComponent.props = {items: event.detail["items"]};
-    modalStore.trigger(modal);
+  const handleClick = (link:string, products: Product[]) => {
+    productStore.set(products)
+    goto(link);
   }
+  
 </script>
 <div class="m-3">
-  <Table source={billsTable} interactive={true} on:selected={selectHandler} class="top-5"/>
-  <Modal />
+  <div class="m-2">
+    <button type="button" class="btn variant-filled">New bill</button>
+  </div>
+  <div class="table-container">
+    <table class="table table-hover table-interactive">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Store</th>
+        </tr>
+      </thead>
+      <tbody>
+        {#each sourceData as bill}
+          <tr>
+            <td on:click={() => handleClick(`/bills/${bill._id}`, bill.products)}>
+              {bill.date}
+              </td>
+            <td>
+              <span class="chip variant-filled"
+              on:click={() => handleClick(`/stores/${bill.store.name}`, [])}>
+                {bill.store.name}
+              </span>
+            </td>
+          </tr>
+        {/each}
+      </tbody>
+    </table>
+  </div>
 </div>

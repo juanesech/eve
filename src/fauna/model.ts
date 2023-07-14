@@ -2,12 +2,14 @@ export type Product = {
   _id?: String
   name: String
   price: number
-  store: Store
+  stores: {
+    data: Store[]
+  }
 }
 
 export type Store = {
-  _id?: String
-  name: String
+  _id?: string
+  name: string
   products: {
     data: Product[]
     count: number 
@@ -15,7 +17,9 @@ export type Store = {
 }
 
 export type Bill = {
-  products: Partial<Product>[]
-  store: String
-  date: String
+  _id: string
+  products: Product[]
+  store: Store
+  date: Date
+  total: Number
 }

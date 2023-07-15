@@ -47,10 +47,12 @@ const billsQuery = gql`
       data {
         _id
         date
+        total
         products {
             data {
                 _id
                 name
+                price
             }
         }
         store {

@@ -18,7 +18,9 @@ export type Store = {
 
 export type Bill = {
   _id: string
-  products: Product[]
+  products: {
+    data: Product[]
+  }
   store: Store
   date: Date
   total: Number

@@ -1,19 +1,22 @@
 <script lang="ts">
   import type { PageServerData } from './$types';
-  import type { Bill, Product } from '../../fauna/model';
+  import type { Bill } from '../../fauna/model';
   import { goto } from '$app/navigation';
-  import {bills as billStore, products as productStore} from './store';
+  import {bill as billStore} from './store';
 
   export let data: PageServerData;
   let sourceData: Bill[] = data.bills;
-  billStore.set(sourceData);
   console.log("DATA: ", sourceData);
   sourceData.forEach((bill) => {
     console.log(bill.store.name);
   })
 
-  const handleClick = (link:string, products: Product[]) => {
-    productStore.set(products)
+  const handleBillClick = (billParam:Bill) => {
+    billStore.set(billParam);
+    goto(`/bills/${billParam._id}`);
+  }
+
+  const handleClick = (link:string) => {
     goto(link);
   }
   
@@ -28,19 +31,23 @@
         <tr>
           <th>Date</th>
           <th>Store</th>
+          <th>Spent</th>
         </tr>
       </thead>
       <tbody>
         {#each sourceData as bill}
           <tr>
-            <td on:click={() => handleClick(`/bills/${bill._id}`, bill.products)}>
+            <td on:click={() => handleBillClick(bill)}>
               {bill.date}
-              </td>
+            </td>
             <td>
               <span class="chip variant-filled"
-              on:click={() => handleClick(`/stores/${bill.store.name}`, [])}>
+              on:click={() => handleClick(`/stores/${bill.store.name}`)}>
                 {bill.store.name}
               </span>
+            </td>
+            <td>
+              {bill.total}
             </td>
           </tr>
         {/each}

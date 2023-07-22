@@ -14,6 +14,9 @@ export type Store = {
     data: Product[]
     count: number 
   }
+  bills: {
+    data: Bill[]
+  }
 }
 
 export type Bill = {

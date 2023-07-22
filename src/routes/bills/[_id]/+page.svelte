@@ -3,14 +3,11 @@
   import { page } from '$app/stores';
   
 </script>
-<div class="m-3">
-  <div class="m-3">
-    <h5 class="h5"><b>ID:</b> {$page.params._id}</h5>
-    <h3 class="h3"><b>Date:</b> {$bill.date}</h3>
-    <h3 class="h3"><b>Store:</b> {$bill.store.name}</h3>
-  </div>
-  <div class="m-3">
-    <h3 class="h3">Products</h3>
+<div class="m-3 container md mx-auto">
+  <div class="m-3 container sm mx-auto card p-4">
+    <h2 class="h2 mb-2"><b>{$bill.store.name}</b></h2>
+    <h3 class="h5"><b>Date: </b>{$bill.date}</h3>
+    <h5 class="h5"><code class="code">{$page.params._id}</code></h5>
   </div>
   <div class="table-container">
     <table class="table table-hover">

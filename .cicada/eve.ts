@@ -22,7 +22,7 @@ export default new Pipeline(
   {
     on: {
       pullRequest: ["main"],
-      push: ["main"],
+      push: ["*"],
     },
   },
 );

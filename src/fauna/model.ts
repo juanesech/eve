@@ -20,7 +20,7 @@ export type Store = {
 }
 
 export type Bill = {
-  _id: string
+  _id?: string
   products: {
     data: Product[]
   }

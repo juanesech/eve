@@ -1,5 +1,7 @@
 import type { Product, Store, Bill } from '../../fauna/model';
-import { getBills, getProducts, getStores } from '../../fauna/helper';
+import { getBills } from '../../fauna/helper/bill';
+import { getProducts } from '../../fauna/helper/product';
+import { getStores } from '../../fauna/helper/store';
 import type { PageServerLoad } from './$types';
 
 

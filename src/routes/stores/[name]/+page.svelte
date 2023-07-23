@@ -25,7 +25,6 @@
             {#each data.products.data as { name } }
               <li>
                 <a href="#">
-                  <span class="badge bg-primary-500">💀</span>
                   <span class="flex-auto">{name}</span>
                 </a>
               </li>

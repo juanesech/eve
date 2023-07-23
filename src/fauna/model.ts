@@ -1,6 +1,6 @@
 export type Product = {
-  _id?: String
-  name: String
+  _id?: string
+  name: string
   price: number
   stores: {
     data: Store[]

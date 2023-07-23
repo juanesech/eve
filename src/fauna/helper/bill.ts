@@ -32,53 +32,8 @@ interface ResponseAllBills {
   }
 }
 
-const createBill = gql`
-  mutation CreateBill {
-    createBill(data: {
-        store: {
-            connect: "366873258984734924"
-        }
-        date: "2023-07-15"
-        total: 4.2
-        products: {
-            create: [
-                {
-                    name: "Sal"
-                    price: 1.5
-                    stores: {
-                        connect: ["366873258984734924"]
-                    }
-                },
-                {
-                    name: "Pimienta"
-                    price: 0.5
-                    stores: {
-                        connect: ["366873258984734924"]
-                    }
-                },
-                {
-                    name: "Pimenton"
-                    price: 1
-                    stores: {
-                        connect: ["366873258984734924"]
-                    }
-                },
-                {
-                    name: "Cebolla"
-                    price: 1.2
-                    stores: {
-                        connect: ["366873258984734924"]
-                    }
-                }
-            ]
-        }
-    }) { _id }
-  }
-`
-interface NewBill {
-  allStores: Store[],
+export interface NewBill {
   storeOnBill: Store,
-  allProducts: Product[],
   productsOnBill: Product[]
   date: Date
 }
@@ -95,7 +50,7 @@ export const newBill = (async(bill:NewBill) => {
     console.log("Creating store", bill.storeOnBill.name);
     storeId = await newStore(bill.storeOnBill.name);
   } else {
-    storeId = bill.allStores.find( store => store.name == bill.storeOnBill.name)?._id
+    storeId = bill.storeOnBill._id
   }
 
   const createProduct = async( name:string, price:number, storeId:string) => {
@@ -111,13 +66,29 @@ export const newBill = (async(bill:NewBill) => {
   }
   
   bill.productsOnBill.forEach( product => {
-    let productId:string|undefined;
     if (!product._id) {
-      console.log("Creating product", product.name);
-
-    } else {
-      storeId = bill.allStores.find( store => store.name == bill.storeOnBill.name)?._id
+      createProduct(product.name, product.price, storeId?storeId:"").then( id => {product._id = id})
+      console.log(product);
     }
-  })
+  
+  const total = bill.productsOnBill.reduce((acc, curr) => acc + curr.price, 0 );
+  const productIds = Array.from(bill.productsOnBill, product => product._id);
 
+  const createBill = gql`
+      mutation CreateBill {
+        createBill(data: {
+            store: {
+                connect: ${storeId}
+            }
+            date: ${bill.date}
+            total: ${total}
+            products: {
+                connect: ${productIds}
+            }
+        }) { _id }
+      }
+  `
+  console.log("QUERY:", createBill);
+
+  });
 });

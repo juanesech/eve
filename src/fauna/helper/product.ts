@@ -8,6 +8,7 @@ const productsQuery = gql`
       data {
         _id
         name
+        price
         stores {
             data {
                 name

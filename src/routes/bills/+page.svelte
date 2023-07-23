@@ -3,6 +3,7 @@
   import type { Bill } from '../../fauna/model';
   import { goto } from '$app/navigation';
   import {bill as billStore} from './store';
+  // import { newBill } from '../../fauna/helper/bill';
 
   export let data: PageServerData;
   let sourceData: Bill[] = data.bills;
@@ -23,7 +24,7 @@
 </script>
 <div class="m-3">
   <div class="m-2">
-    <button type="button" class="btn variant-filled">New bill</button>
+    <button type="button" on:click={() => handleClick(`/bills/new`)} class="btn variant-filled">New bill</button>
   </div>
   <div class="table-container">
     <table class="table table-hover table-interactive">

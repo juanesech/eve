@@ -38,10 +38,9 @@ export interface NewBill {
   date: Date
 }
 
-export const getBills = (async () => {
-  let billsResponse:ResponseAllBills = await Client.request(billsQuery);
-  let bills: Bill[] = billsResponse.allBills.data;
-  return bills;
+export const getBills = (async ():Promise<Bill[]> => {
+  const billsResponse:ResponseAllBills = await Client.request(billsQuery);
+  return billsResponse.allBills.data;
 });
 
 export const newBill = (async(bill:NewBill) => {

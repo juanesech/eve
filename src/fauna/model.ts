@@ -26,5 +26,5 @@ export type Bill = {
   }
   store: Store
   date: Date
-  total: Number
+  total: Int32Array
 }

@@ -21,24 +21,27 @@
 						href="/"
 						title="Home"
 						selected={$page.url.pathname === '/'}>
-						Home
+						<svelte:fragment slot="lead">
+							<Icon width="30" height="30" icon="solar:diagram-down-bold-duotone" />
+						</svelte:fragment>
+						<span>Dashboard</span>
 					</AppRailAnchor>
 				</svelte:fragment>
 					<AppRailAnchor href="/products" selected={$page.url.pathname === '/products'} title="Products">
 						<svelte:fragment slot="lead">
-							<Icon icon="teenyicons:layers-solid" />
+							<Icon width="30" height="30" icon="solar:cart-2-line-duotone" />
 						</svelte:fragment>
 						<span>Products</span>
 					</AppRailAnchor>
 					<AppRailAnchor href="/stores" title="stores" selected={$page.url.pathname === '/stores'}>
 						<svelte:fragment slot="lead">
-							<Icon icon="teenyicons:bag-alt-solid" />
+							<Icon  width="30" height="30" icon="solar:shop-line-duotone"/>
 						</svelte:fragment>
 						<span>Stores</span>
 					</AppRailAnchor>
 					<AppRailAnchor href="/bills" title="bills" selected={$page.url.pathname === '/bills'}>
 						<svelte:fragment slot="lead">
-							<Icon icon="teenyicons:table-solid"/>
+							<Icon width="30" height="30" icon="solar:bill-check-line-duotone"/>
 						</svelte:fragment>
 						<span>Bills</span>
 					</AppRailAnchor>

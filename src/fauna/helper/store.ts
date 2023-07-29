@@ -34,9 +34,8 @@ export interface CreateStoreResponse {
 }
 
 export const getStores = (async () => {
-  let storesResponse:ResponseAllStores = await Client.request(storesQuery);
-  let stores: Store[] = storesResponse.allStores.data;
-  return stores;
+  const storesResponse:ResponseAllStores = await Client.request(storesQuery);
+  return storesResponse.allStores.data;
 });
 
 export const newStore = (async (name:string) => {
@@ -47,6 +46,6 @@ export const newStore = (async (name:string) => {
         }) { _id }
     }
   `
-  let newStore:CreateStoreResponse = await Client.request(createStoreMutation);
+  const newStore:CreateStoreResponse = await Client.request(createStoreMutation);
   return newStore.data.createStore._id
 });

@@ -34,9 +34,8 @@ export interface CreateProductResponse {
 }
 
 export const getProducts = (async () => {
-  let productsResponse:AllProductsResponse = await Client.request(productsQuery);
-  let products: Product[] = productsResponse.allProducts.data;
-  return products;
+  const productsResponse:AllProductsResponse = await Client.request(productsQuery);
+  return productsResponse.allProducts.data;
 });
 
 export const newProduct = (async (product:Product, storeId:string) => {
@@ -49,6 +48,6 @@ export const newProduct = (async (product:Product, storeId:string) => {
        }
     }) { _id }
   `
-  let newProduct:CreateProductResponse = await Client.request(createProductMutation);
+  const newProduct:CreateProductResponse = await Client.request(createProductMutation);
   return newProduct.data.createProduct._id
 });

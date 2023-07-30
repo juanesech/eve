@@ -1,14 +1,18 @@
 type Store {
   name: String! @unique
-  products: [Product] @relation(name: "store_products")
+  products: [ProductPrice_Store] @relation(name: "store_products")
   bills: [Bill] @relation(name: "store_bills")
 }
 
+type ProductPrice_Store {
+  store: Store! @relation(name: "store_products")
+  product: Product! @relation(name: "price_product")
+  price: Float!
+}
 type Product {
   name: String! @unique
-  price: Float!
+  price: [ProductPrice_Store]! @relation(name: "price_product")
   bills: [Bill]! @relation(name: "product_on_bill")
-  stores: [Store] @relation(name: "store_products")
 }
 
 type Bill {

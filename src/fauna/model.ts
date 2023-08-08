@@ -1,9 +1,17 @@
 export type Product = {
   _id?: string
   name: string
-  price: number
+  price: [ProductStore]
   stores: {
     data: Store[]
+  }
+}
+
+export interface ProductStore {
+  data: {
+    price: Float32Array
+    store: Store
+    product: Product 
   }
 }
 

@@ -1,5 +1,6 @@
 import { connect } from "mongoose";
 
 export const Client = async() => {
-    await connect('mongodb+srv://eve:DMER759BuiRx2vod@eve.cfujiae.mongodb.net/');
+    let dbUrl:string = process.env["MONGODB_URI"] ? process.env["MONGODB_URI"] : "localhost";
+    await connect(dbUrl);
 }

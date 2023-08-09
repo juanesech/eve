@@ -5,6 +5,7 @@
   import { goto } from '$app/navigation'; 
 
   export let data: PageServerData;
+  console.log("DATA: ", data);
   let storesTable: TableSource;
 
   const handleClick = ( value:CustomEvent ) => {

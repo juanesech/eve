@@ -1,7 +1,7 @@
 import { Schema, Types, model } from 'mongoose';
 
 
-interface IBill {
+export interface IBill {
     date: Date
     store_id: Types.ObjectId
     products: [{

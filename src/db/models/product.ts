@@ -1,7 +1,7 @@
 import { Schema, Types, model } from 'mongoose';
 
 
-interface IProduct {
+export interface IProduct {
     name: string
     stores: [Types.ObjectId]
 }

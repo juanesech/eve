@@ -41,6 +41,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@vercel/node": "^2.15.9",
 		"faunadb": "^4.8.0",
 		"graphql": "^16.6.0",
 		"graphql-request": "^6.1.0",

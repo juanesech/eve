@@ -2,28 +2,29 @@
   import { Table, tableMapperValues } from '@skeletonlabs/skeleton';
   import type { TableSource } from '@skeletonlabs/skeleton';
   import type { PageServerData } from './$types';
+  import type { IStore } from '../../db/models/store';
   import { goto } from '$app/navigation'; 
 
   export let data: PageServerData;
-  console.log("DATA: ", data);
+  let stores:IStore[] = JSON.parse(data.stores);
   let storesTable: TableSource;
 
   const handleClick = ( value:CustomEvent ) => {
     console.log("CLICK HANDLER:", value);
-    console.log(`EVENT DETAIL: /stores/${value.detail[0]}`)
-    goto(`/stores/${value.detail[0]}`);
+    console.log(`EVENT DETAIL: /stores/${value.detail[1]}`)
+    goto(`/stores/${value.detail[1]}`);
   }
 
   $: storesTable = {
       head: ['Name'],
-      body: tableMapperValues(data.stores, ['name']),
-      meta: tableMapperValues(data.stores, ['name']),
+      body: tableMapperValues(stores, ['name']),
+      meta: tableMapperValues(stores, ['name', '_id']),
   }
   let filter = ""
   function handleFilterChange() {
-    let filteredData = data.stores.filter( item => item.name.includes(filter));
+    let filteredData = stores.filter( item => item.name.includes(filter));
     console.log(filteredData);
-    data.stores = filteredData;
+    stores = filteredData;
   }
 </script>
 <div class="m-3">
@@ -36,4 +37,3 @@
     on:change={handleFilterChange}/>
   <Table source={storesTable} interactive on:selected={handleClick} class="top-5"/>
 </div>
-

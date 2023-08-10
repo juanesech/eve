@@ -1,20 +1,22 @@
-import { Schema, model } from 'mongoose';
+import { Schema, Types, model } from 'mongoose';
 
 
 export interface IStore {
-    _id: string
+    _id: Types.ObjectId
     name: string
     products: [{
-        product_id: string
+        product_id: Types.ObjectId
+        name: string
         price: number
     }]
 }
 
 const storeSchema = new Schema<IStore>({
-    _id: {type: String},
+    _id: {type: Schema.Types.ObjectId},
     name: {type: String, required: true},
     products: [{
-        product_id: {type: String, required: true},
+        product_id: {type: Schema.Types.ObjectId, required: true},
+        name: {type: String, required: true},
         price: {type: Number, required: true}
     }]
 });

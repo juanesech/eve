@@ -1,10 +1,10 @@
 <script lang="ts">
   import type { PageServerData } from './$types';
-  import type {Product} from '../../fauna/model';
+  import type { IProduct } from '../../db/models/product';
   import { goto } from '$app/navigation';
 
   export let data: PageServerData;
-  let sourceData:Product[] = data.products;
+  let sourceData:IProduct[] = JSON.parse(data.products);
   console.log("DATA: ", sourceData);
   
   let filter = ""
@@ -39,15 +39,15 @@
         {#each sourceData as product}
           <tr>
             <td>{product.name}</td>
-            <td>
-              {#each product.stores.data as store}
+            <!-- <td>
+              {#each product.stores as store}
               <span class="chip variant-soft hover:variant-filled"
-                on:click={() => handleClick(store.name)}
+                on:click={() => handleClick(store)}
                 on:keydown={() => handleClick(store.name)}>
                 {store.name}
               </span>
               {/each}
-            </td>
+            </td> -->
           </tr>
         {/each}
       </tbody>

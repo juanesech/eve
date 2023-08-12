@@ -20,6 +20,7 @@
 </script>
 
 <div class="m-3">
+  <button type="button" on:click={() => handleClick(`/bills/new`)} class="btn variant-filled">New</button>
   <input
     class="input m-2 w-5/12"
     title="Filter"

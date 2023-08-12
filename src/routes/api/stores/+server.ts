@@ -2,7 +2,6 @@ import type { RequestHandler } from './$types';
 import { Store } from '../../../db/models/store';
 import { Connect } from '../../../db/client';
 import type { IStore } from '../../../db/models/store';
-import { stores } from '../../store';
 
 
 export const GET = (async() => {

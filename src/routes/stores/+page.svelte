@@ -26,14 +26,22 @@
     console.log(filteredData);
     stores = filteredData;
   }
+
+  const handleNew = (link:string) => {
+    goto(link);
+  }
+  
 </script>
 <div class="m-3">
-  <input
+  <div class="m-2">
+    <button type="button" on:click={() => handleNew(`/stores/new`)} class="btn variant-filled">New</button>
+    <input
     class="input m-2 w-5/12"
     title="Filter"
     type="search"
     placeholder="Filter..."
     bind:value={filter}
     on:change={handleFilterChange}/>
+  </div>
   <Table source={storesTable} interactive on:selected={handleClick} class="top-5"/>
 </div>
